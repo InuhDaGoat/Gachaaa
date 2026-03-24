@@ -1,152 +1,212 @@
+/* Custom Properties - Tema Dimensi Astral */
 :root {
-  --bg: #0b1020;
-  --panel: #121933;
-  --line: #31406d;
-  --text: #e2e8f0;
+  --bg: #05070a;
+  --panel: rgba(15, 23, 42, 0.8);
+  --line: #1e293b;
+  --accent: #38bdf8;
+  --text: #f1f5f9;
   --muted: #94a3b8;
+  
+  /* Rarity Colors (Sesuai Lore) */
+  --mythical: #ff3e3e;   /* Aura Zarok (Abyss) */
+  --legendary: #fbbf24;  /* Solar Realm */
+  --epic: #a855f7;       /* Magic/Void */
+  --rare: #3b82f6;       /* Techno/Sky */
+  --common: #94a3b8;
 }
 
-* { box-sizing: border-box; }
+/* Base Styles */
+* { box-sizing: border-box; transition: all 0.2s ease; }
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   color: var(--text);
-  background: radial-gradient(circle at top, #1f2a50, var(--bg));
+  background-color: var(--bg);
+  /* Efek Nebula di Background */
+  background-image: 
+    radial-gradient(circle at 50% 0%, #1e1b4b 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, #0c0a09 0%, transparent 40%);
+  background-attachment: fixed;
+  line-height: 1.6;
 }
 
 .container {
-  width: min(1100px, 94vw);
+  width: min(1100px, 95vw);
   margin: 0 auto;
-  padding: 1.5rem 0 3rem;
+  padding: 2rem 0 5rem;
 }
 
-header p { color: var(--muted); }
+/* Header & Typography */
+header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
 
+header h1 {
+  font-size: 2.5rem;
+  letter-spacing: -1px;
+  background: linear-gradient(to right, #fff, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+}
+
+h2 {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.5rem;
+}
+
+/* Glassmorphism Panel */
 .panel {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 1rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
 }
 
+/* Stats Display */
 .stats-grid {
   display: grid;
-  gap: .4rem;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 
-.actions {
-  margin-top: .8rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: .5rem;
-}
-
-button {
-  border: none;
-  border-radius: 10px;
-  padding: .55rem .9rem;
-  color: white;
-  font-weight: 600;
-  background: linear-gradient(135deg, #0ea5e9, #6366f1);
-  cursor: pointer;
-}
-
-button.ghost { background: #334155; }
-button:disabled { opacity: .55; cursor: not-allowed; }
-
-.grid-two {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1rem;
-}
-
-.list { display: grid; gap: .5rem; }
-.shop-item {
+.stats-grid p {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  margin: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: .5rem;
-  padding: .5rem;
-  border: 1px solid var(--line);
-  border-radius: 10px;
 }
 
-.box {
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: .7rem;
-  margin-top: .7rem;
+.stats-grid strong {
+  color: var(--accent);
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
 }
 
-.equip-grid {
+/* Buttons - Gaming Style */
+.actions {
+  margin-top: 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 1.2rem;
+  color: white;
+  font-weight: 600;
+  background: #1e293b;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  background: #334155;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+button:active { transform: translateY(0); }
+
+/* Special Buttons */
+#gachaButton {
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+
+#gachaButton:hover {
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
+}
+
+.ghost {
+  background: transparent;
+  border: 1px dashed var(--muted);
+  color: var(--muted);
+}
+
+/* Logs & Lists */
+.log-text {
+  font-size: 0.85rem;
+  color: var(--muted);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.8rem;
+  border-radius: 8px;
+  min-height: 40px;
+  margin: 1rem 0;
+}
+
+.list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.shop-item, .box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+/* Inventory & Characters */
+.equip-grid, .team-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: .5rem;
+  gap: 1rem;
 }
 
 .slot-box {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: .5rem;
-  display: grid;
-  gap: .35rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
 }
 
-.team-grid {
+/* Rarity Classes */
+.Mythical { color: var(--mythical); text-shadow: 0 0 10px rgba(255, 62, 62, 0.5); font-weight: bold; }
+.Legendary { color: var(--legendary); text-shadow: 0 0 10px rgba(251, 191, 36, 0.5); font-weight: bold; }
+.Epic { color: var(--epic); }
+.Rare { color: var(--rare); }
+
+/* Layout Grid for Sections */
+.grid-main {
   display: grid;
-  grid-template-columns: repeat(2, minmax(120px, 1fr));
-  gap: .5rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
 }
 
+/* Input Fields */
 input, select {
   width: 100%;
   background: #0f172a;
   color: var(--text);
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: .45rem .55rem;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
 }
 
-.form-grid {
-  display: grid;
-  gap: .6rem;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+input:focus {
+  outline: none;
+  border-color: var(--accent);
 }
-
-.log-text { color: #bfdbfe; }
-
-.timeline {
-  display: grid;
-  gap: .7rem;
-}
-
-.timeline-card {
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: .7rem;
-  background: #0f172a;
-}
-
-.timeline-card h3 {
-  margin: 0 0 .35rem;
-  color: #f8fafc;
-  font-size: 1rem;
-}
-
-.timeline-card p {
-  margin: .2rem 0;
-  color: #cbd5e1;
-}
-
-.chat-box {
-  white-space: pre-line;
-  min-height: 82px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: .5rem;
-  background: #0f172a;
-}
-
