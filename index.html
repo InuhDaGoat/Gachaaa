@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gachaaa Ultimate RPG</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>🌌 Gachaaa Ultimate RPG</h1>
+        <p>
+          Fitur lengkap: gacha, PvE dungeon, inventory, toko, global rank, event, resonance elemen,
+          dan character builder.
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Resource</h2>
+        <div class="stats-grid">
+          <p>Gems: <strong id="gemsValue">0</strong></p>
+          <p>Gold: <strong id="goldValue">0</strong></p>
+          <p>Evo Token: <strong id="evoTokenValue">0</strong></p>
+          <p>Pity: <strong id="pityValue">0</strong></p>
+          <p>Rank Score: <strong id="rankScoreValue">0</strong></p>
+          <p>Event Point: <strong id="eventPointValue">0</strong></p>
+        </div>
+        <div class="actions">
+          <button id="dailyRewardButton" type="button">Claim Daily</button>
+          <button id="gachaButton" type="button">Gacha (160 Gems)</button>
+          <button id="evolveButton" type="button">Evolve 1140 Token</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Hasil Gacha</h2>
+        <div id="result">Belum ada pull.</div>
+      </section>
+
+      <section class="panel grid-two">
+        <div>
+          <h2>PvE Dungeon</h2>
+          <p>Dungeon harian: <strong id="dungeonName">Abyss Rift Summit</strong></p>
+          <p>Rekomendasi power: <strong id="dungeonPower">5000</strong></p>
+          <button id="runDungeonButton" type="button">Jalankan Dungeon</button>
+          <p id="dungeonLog" class="log-text">Belum ada run.</p>
+        </div>
+        <div>
+          <h2>Event Aktif</h2>
+          <p id="eventInfo"></p>
+          <button id="eventClaimButton" type="button">Claim Hadiah Event</button>
+          <p id="eventLog" class="log-text">Belum klaim hadiah.</p>
+        </div>
+      </section>
+
+      <section class="panel grid-two">
+        <div>
+          <h2>Toko</h2>
+          <div class="actions">
+            <button id="shopTabGeneral" type="button">General Shop</button>
+            <button id="shopTabPremium" type="button">Premium Shop</button>
+            <button id="shopTabBlackMarket" type="button">Black Market</button>
+          </div>
+          <p id="shopInfo" class="log-text"></p>
+          <div id="shopList" class="list"></div>
+        </div>
+        <div>
+          <h2>Inventory</h2>
+          <ul id="inventoryList" class="list"></ul>
+        </div>
+      </section>
+
+      <section class="panel grid-two">
+        <div>
+          <h2>Karakter Dimiliki</h2>
+          <select id="characterSelect"></select>
+          <div id="characterDetail" class="box"></div>
+        </div>
+        <div>
+          <h2>Loadout Karakter</h2>
+          <div class="equip-grid" id="equipGrid"></div>
+        </div>
+      </section>
+
+      <section class="panel grid-two">
+        <div>
+          <h2>Team Resonance</h2>
+          <p>Pilih 4 karakter untuk hitung resonance.</p>
+          <div id="teamSelectors" class="team-grid"></div>
+          <p id="resonanceOutput" class="log-text"></p>
+        </div>
+        <div>
+          <h2>Global Rank</h2>
+          <ol id="leaderboard"></ol>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Lore Dunia</h2>
+        <div id="loreText" class="timeline"></div>
+      </section>
+
+
+
+      <section class="panel grid-two">
+        <div>
+          <h2>Advanced Progression</h2>
+          <div class="actions">
+            <button id="awakenButton" type="button">Awakening / Limit Break</button>
+            <button id="weaponGachaButton" type="button">Weapon Gacha</button>
+            <button id="skillTreeButton" type="button">Upgrade Skill Tree</button>
+            <button id="petRollButton" type="button">Adopt Pet</button>
+          </div>
+          <p id="progressionLog" class="log-text"></p>
+          <p id="petInfo" class="log-text"></p>
+        </div>
+        <div>
+          <h2>Economy Systems</h2>
+          <div class="actions">
+            <button id="exchangeButton" type="button">Exchange Shop</button>
+            <button id="monthlyPassButton" type="button">Buy Monthly Pass</button>
+            <button id="topupButton" type="button">First Purchase Double</button>
+            <button id="blackMarketButton" type="button">Refresh Black Market</button>
+          </div>
+          <p id="economyLog" class="log-text"></p>
+          <div id="blackMarketList" class="list"></div>
+        </div>
+      </section>
+
+      <section class="panel grid-two">
+        <div>
+          <h2>Battle Strategy Lab</h2>
+          <div class="actions">
+            <button id="reactionTestButton" type="button">Test Elemental Reaction</button>
+            <button id="autoBattleButton" type="button">Set Auto Priority</button>
+            <button id="bossButton" type="button">Fight Shield Boss</button>
+            <button id="comboButton" type="button">Combo Ultimate</button>
+            <button id="towerButton" type="button">Tower of Trials</button>
+          </div>
+          <p id="battleLog" class="log-text"></p>
+        </div>
+        <div>
+          <h2>Social & Lifestyle</h2>
+          <div class="actions">
+            <button id="friendPointButton" type="button">Send Friendship</button>
+            <button id="mercenaryButton" type="button">Share Mercenary</button>
+            <button id="guildButton" type="button">Upgrade Guild Territory</button>
+            <button id="dormButton" type="button">Decorate Dorm</button>
+            <button id="galleryButton" type="button">Update Gallery</button>
+            <button id="voiceButton" type="button">Play Voice Line</button>
+          </div>
+          <p id="socialLog" class="log-text"></p>
+          <p id="chatLog" class="chat-box"></p>
+        </div>
+      </section>
+
+
+
+      <section class="panel grid-two">
+        <div>
+          <h2>Battle Mechanics (Deep Strategy)</h2>
+          <div class="actions">
+            <button id="breakGaugeButton" type="button">Hit Breaking Gauge</button>
+            <button id="hazardButton" type="button">Next Hazard Turn</button>
+            <button id="supportSlotButton" type="button">Test Support Slot</button>
+            <button id="chainComboButton" type="button">Chain Combo 20%</button>
+            <button id="ultimateSpeedButton" type="button">Toggle Ulti Skip/Speed</button>
+          </div>
+          <p id="deepBattleLog" class="log-text"></p>
+        </div>
+        <div>
+          <h2>Character Growth (Whale Bait)</h2>
+          <div class="actions">
+            <button id="signatureResonanceButton" type="button">Signature Resonance</button>
+            <button id="relicAugmentButton" type="button">Relic Augmentation</button>
+            <button id="talentAwakeningButton" type="button">Talent Awakening</button>
+            <button id="bondButton" type="button">Bond Interaction</button>
+          </div>
+          <p id="growthLog" class="log-text"></p>
+        </div>
+      </section>
+
+      <section class="panel grid-two">
+        <div>
+          <h2>Guild & Multiplayer</h2>
+          <div class="actions">
+            <button id="guildRaidButton" type="button">Attack Guild Raid Boss</button>
+            <button id="rentMercButton" type="button">Mercenary Rent</button>
+            <button id="guildSkillButton" type="button">Upgrade Guild Skill</button>
+          </div>
+          <p id="guildLog" class="log-text"></p>
+        </div>
+        <div>
+          <h2>Economy & Lifestyle+</h2>
+          <div class="actions">
+            <button id="dispatchButton" type="button">Dispatch Expedition</button>
+            <button id="checkinButton" type="button">Daily Check-in</button>
+            <button id="battlePassButton" type="button">Progress Battle Pass</button>
+            <button id="secretShopButton" type="button">Refresh Secret Shop</button>
+          </div>
+          <p id="lifestyleLog" class="log-text"></p>
+          <div id="secretShopList" class="list"></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Content & Events+</h2>
+        <div class="actions">
+          <button id="roguelikeButton" type="button">Roguelike Labyrinth</button>
+          <button id="survivalButton" type="button">Survival Tower Infinite</button>
+          <button id="bossRushButton" type="button">Boss Rush 1-10</button>
+          <button id="miniGameButton" type="button">Mini-Game Lobby</button>
+        </div>
+        <p id="contentLog" class="log-text"></p>
+      </section>
+
+      <section class="panel">
+        <h2>Supabase (Opsional)</h2>
+        <div class="form-grid">
+          <label>Supabase URL <input id="supabaseUrl" type="url" /></label>
+          <label>Anon Key <input id="supabaseKey" type="password" /></label>
+        </div>
+        <div class="actions">
+          <button id="saveConfigButton" type="button">Simpan Supabase</button>
+          <button id="disconnectButton" type="button" class="ghost">Disconnect</button>
+        </div>
+        <p id="supabaseStatus" class="log-text">Mode lokal.</p>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
+
