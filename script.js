@@ -31,6 +31,196 @@ const baseCharacters = [
   { name: "Dorian", rarity: "Rare", lore: "Pemburu malam." }
 ];
 
+// Database Karakter (Sesuai Lore sebelumnya)
+const CHARACTER_DB = [
+  { id: 1, name: "Reza", rarity: "Mythical", element: "Summit", role: "Warrior", weapon: "Greatsword" },
+  { id: 2, name: "Cyntia", rarity: "Legendary", element: "Sky", role: "Mage", weapon: "Staff" },
+  { id: 3, name: "Axel", rarity: "Legendary", element: "Solar", role: "Ranger", weapon: "Bow" },
+  { id: 4, name: "Iwan", rarity: "Epic", element: "Void", role: "Assassin", weapon: "Dagger" },
+  { id: 5, name: "Budi", rarity: "Epic", element: "Abyss", role: "Mage", weapon: "Book" },
+  { id: 6, name: "Rina", rarity: "Rare", element: "Nature", role: "Ranger", weapon: "Bow" },
+  { id: 7, name: "Agus", rarity: "Rare", element: "Iron", role: "Warrior", weapon: "Shield" },
+];
+
+class GameEngine {
+  constructor() {
+    this.state = this.loadData();
+    this.updateUI();
+    this.bindEvents();
+  }
+
+  loadData() {
+    const defaultData = {
+      gems: 10000,
+      pityCount: 0,
+      inventory: [],
+      labyrinthFloor: 0,
+      currentShopBanner: 1
+    };
+    const savedData = localStorage.getItem('gachaRPGData');
+    return savedData ? JSON.parse(savedData) : defaultData;
+  }
+
+  saveData() {
+    localStorage.setItem('gachaRPGData', JSON.stringify(this.state));
+  }
+
+  bindEvents() {
+    const btnGacha = document.getElementById('gachaButton');
+    const btnCloseGacha = document.getElementById('close-gacha');
+    if(btnCloseGacha) btnCloseGacha.onclick = () => this.hideGachaVisual();
+  }
+
+  updateUI() {
+    document.getElementById('gems').innerText = this.state.gems.toLocaleString();
+    document.getElementById('pityCount').innerText = this.state.pityCount;
+    this.saveData();
+  }
+
+  // --- Gacha System with Visuals ---
+
+  pullGacha() {
+    const cost = 1600;
+    if (this.state.gems < cost) {
+      alert("Gems tidak cukup untuk melakukan pemanggilan 10x.");
+      return;
+    }
+
+    this.state.gems -= cost;
+    this.updateUI();
+    this.showGachaVisual();
+
+    let results = [];
+    for (let i = 0; i < 10; i++) {
+      results.push(this.drawSingle());
+    }
+
+    // Tampilkan hasil secara visual setelah jeda animasi "rift"
+    setTimeout(() => {
+      this.renderGachaCards(results);
+    }, 1500); 
+  }
+
+  drawSingle() {
+    this.state.pityCount++;
+    let drawn;
+
+    if (this.state.pityCount >= 90) {
+      this.state.pityCount = 0;
+      drawn = this.getRandomCharacter("Legendary");
+    } else {
+      let roll = Math.random();
+      if (roll < 0.006) { // 0.6% Mythical
+        drawn = this.getRandomCharacter("Mythical");
+        this.state.pityCount = 0;
+      } else if (roll < 0.06) { // 6% Legendary
+        drawn = this.getRandomCharacter("Legendary");
+        this.state.pityCount = 0;
+      } else if (roll < 0.2) { // 20% Epic
+        drawn = this.getRandomCharacter("Epic");
+      } else {
+        drawn = this.getRandomCharacter("Rare");
+      }
+    }
+
+    this.state.inventory.push(drawn.id);
+    this.saveData();
+    return drawn;
+  }
+
+  getRandomCharacter(rarity) {
+    const charsByRarity = CHARACTER_DB.filter(c => c.rarity === rarity);
+    return charsByRarity[Math.floor(Math.random() * charsByRarity.length)];
+  }
+
+  // --- Visualisasi Kartu Gacha ---
+
+  showGachaVisual() {
+    const overlay = document.getElementById('gacha-overlay');
+    const visual = document.getElementById('gacha-results-visual');
+    overlay.classList.remove('hidden');
+    overlay.classList.add('animate'); // Mulai animasi rift blur
+    visual.classList.add('hidden'); // Sembunyikan hasil dulu
+  }
+
+  hideGachaVisual() {
+    const overlay = document.getElementById('gacha-overlay');
+    overlay.classList.add('hidden');
+    overlay.classList.remove('animate');
+    this.openInventory(); // Pindah ke inventory setelah gacha
+  }
+
+  renderGachaCards(results) {
+    const container = document.getElementById('gacha-card-container');
+    const visual = document.getElementById('gacha-results-visual');
+    visual.classList.remove('hidden'); // Tampilkan box hasil
+    container.innerHTML = ''; // Reset container
+
+    results.forEach((char, index) => {
+      // Buat elemen kartu
+      const card = document.createElement('div');
+      card.className = `gacha-card card-${char.rarity}`;
+      
+      // Delay animasi kartu satu per satu
+      card.style.animationDelay = `${index * 0.1}s`;
+
+      card.innerHTML = `
+        <div class="name">${char.name}</div>
+        <div class="rarity">${char.rarity} (${char.element})</div>
+      `;
+
+      container.appendChild(card);
+    });
+  }
+
+  // --- Inventory System (Visual) ---
+
+  openInventory() {
+    const display = document.getElementById('content-display');
+    display.innerHTML = '<h2>Inventaris Pahlawan</h2><div class="gacha-card-container inventory-grid"></div>';
+    
+    if(this.state.inventory.length === 0) {
+      display.innerHTML += '<p class="log-text">Panggil pahlawan untuk mengisi inventaris.</p>';
+      return;
+    }
+
+    const container = display.querySelector('.inventory-grid');
+    
+    // Kelompokkan inventory (karena hanya menyimpan ID)
+    let invCounts = {};
+    this.state.inventory.forEach(id => invCounts[id] = (invCounts[id] || 0) + 1);
+
+    // Tampilkan inventory sebagai kartu kecil
+    Object.keys(invCounts).forEach(id => {
+      const char = CHARACTER_DB.find(c => c.id == id);
+      const card = document.createElement('div');
+      card.className = `gacha-card card-${char.rarity}`;
+      card.style.transform = 'scale(0.85)'; // Lebih kecil untuk grid inventory
+      card.style.margin = '-10px'; 
+      card.innerHTML = `
+        <div class="name">${char.name}</div>
+        <div class="rarity">P${invCounts[id]} / ${char.role}</div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  // --- Placeholder untuk Menu Lain ---
+  openShop() { document.getElementById('content-display').innerHTML = '<h2>Pasar Astral</h2><p>Toko koin & gems masih dalam pengembangan.</p>'; }
+  openPityShop() { document.getElementById('content-display').innerHTML = '<h2>Toko Takdir (Pity)</h2><p>Pity Shop: Tukar pity untuk jaminan legendary.</p>'; }
+  openLabyrinth() { document.getElementById('content-display').innerHTML = '<h2>Labyrinth Dimensi</h2><p>Fitur roguelike masih dalam pengembangan.</p>'; }
+
+  resetData() {
+    if(confirm("Apakah kamu yakin ingin mereset semua data? Gems & Inventory akan kembali seperti semula.")) {
+      localStorage.removeItem('gachaRPGData');
+      location.reload();
+    }
+  }
+}
+
+// Inisialisasi Game
+const game = new GameEngine();
+
 const newCharacters = [
   "Nyx","Orion","Kael","Rhea","Valk","Mira","Talon","Seris","Eidon","Lumia",
   "Ragnar","Kairo","Selene","Noctis","Iris","Fenra","Oberon","Pyra","Zeph","Triton",
