@@ -1,110 +1,115 @@
 /* Custom Properties - Tema Dimensi Astral */
 :root {
-  --bg: #05070a;
-  --panel: rgba(15, 23, 42, 0.8);
+  --bg: #030508;
+  --panel: rgba(10, 15, 28, 0.85);
+  --panel-light: rgba(20, 30, 50, 0.6);
   --line: #1e293b;
   --accent: #38bdf8;
+  --danger: #ef4444;
   --text: #f1f5f9;
   --muted: #94a3b8;
   
-  /* Rarity Colors (Sesuai Lore) */
-  --mythical: #ff3e3e;   /* Aura Zarok (Abyss) */
-  --legendary: #fbbf24;  /* Solar Realm */
-  --epic: #a855f7;       /* Magic/Void */
-  --rare: #3b82f6;       /* Techno/Sky */
-  --common: #94a3b8;
+  /* Rarity Colors */
+  --mythical: #ff3e3e;   /* Aura Zarok */
+  --legendary: #fbbf24;  /* Emas Solar */
+  --epic: #a855f7;       /* Ungu Void */
+  --rare: #3b82f6;       /* Biru Sky */
 }
 
 /* Base Styles */
-* { box-sizing: border-box; transition: all 0.2s ease; }
+* { box-sizing: border-box; transition: all 0.25s ease; }
 
 body {
   margin: 0;
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
   color: var(--text);
   background-color: var(--bg);
-  /* Efek Nebula di Background */
   background-image: 
-    radial-gradient(circle at 50% 0%, #1e1b4b 0%, transparent 50%),
-    radial-gradient(circle at 100% 100%, #0c0a09 0%, transparent 40%);
+    radial-gradient(circle at 50% 10%, #1e1b4b 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, #0c0a09 0%, transparent 30%);
   background-attachment: fixed;
-  line-height: 1.6;
 }
 
 .container {
-  width: min(1100px, 95vw);
+  width: min(1280px, 98vw);
   margin: 0 auto;
-  padding: 2rem 0 5rem;
+  padding: 1rem 0;
 }
 
-/* Header & Typography */
-header {
-  text-align: center;
-  margin-bottom: 2.5rem;
-}
-
-header h1 {
-  font-size: 2.5rem;
-  letter-spacing: -1px;
+/* Typography */
+h1 {
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 800;
+  letter-spacing: -1.5px;
   background: linear-gradient(to right, #fff, var(--accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+  margin: 0;
 }
+
+h1 .subtitle { font-size: 0.9rem; font-family: 'Inter'; font-weight: 400; letter-spacing: 2px; -webkit-text-fill-color: var(--muted); }
 
 h2 {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   color: var(--accent);
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
   border-bottom: 1px solid var(--line);
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
 }
 
-/* Glassmorphism Panel */
+/* Main Layout */
+.main-layout {
+  display: flex;
+  gap: 1.5rem;
+  height: 95vh;
+}
+
+.control-panel {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.content-panel {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+/* Panel & Card Styling */
 .panel {
-  margin-top: 1.5rem;
   background: var(--panel);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 20px;
   padding: 1.5rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
 }
 
 /* Stats Display */
-.stats-grid {
-  display: grid;
-  gap: 0.75rem;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-}
-
 .stats-grid p {
   background: rgba(0, 0, 0, 0.3);
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
   border: 1px solid var(--line);
-  margin: 0;
+  margin: 0 0 0.5rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .stats-grid strong {
   color: var(--accent);
-  font-family: 'Courier New', monospace;
+  font-family: 'monospace';
   font-size: 1.1rem;
 }
 
-/* Buttons - Gaming Style */
-.actions {
-  margin-top: 1.2rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
+/* Buttons */
+.actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.actions.vertical { flex-direction: column; }
 
 button {
   cursor: pointer;
@@ -115,98 +120,119 @@ button {
   font-weight: 600;
   background: #1e293b;
   border: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-button:hover {
-  transform: translateY(-3px);
-  background: #334155;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
+button:hover { transform: translateY(-2px); border-color: var(--accent); }
+button.ghost { background: transparent; border: 1px dashed var(--muted); color: var(--muted); }
+button.danger { background: rgba(239, 68, 68, 0.2); border-color: var(--danger); color: var(--danger); }
+button.danger:hover { background: var(--danger); color: white; }
 
-button:active { transform: translateY(0); }
-
-/* Special Buttons */
 #gachaButton {
+  flex-grow: 1;
   background: linear-gradient(135deg, #6366f1, #a855f7);
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+  font-size: 1.1rem;
 }
 
-#gachaButton:hover {
-  box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
-}
+#gachaButton:hover { box-shadow: 0 0 30px rgba(168, 85, 247, 0.5); }
 
-.ghost {
-  background: transparent;
-  border: 1px dashed var(--muted);
-  color: var(--muted);
-}
-
-/* Logs & Lists */
-.log-text {
-  font-size: 0.85rem;
-  color: var(--muted);
-  background: rgba(0, 0, 0, 0.2);
-  padding: 0.8rem;
-  border-radius: 8px;
-  min-height: 40px;
-  margin: 1rem 0;
-}
-
-.list {
-  display: grid;
-  gap: 0.6rem;
-}
-
-.shop-item, .box {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 1rem;
-}
-
-/* Inventory & Characters */
-.equip-grid, .team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+/* Gacha Card Visualization */
+#gacha-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
+  margin: 2rem 0;
 }
 
-.slot-box {
-  background: rgba(15, 23, 42, 0.6);
-  border: 2px solid var(--line);
-  border-radius: 12px;
+.gacha-card {
+  width: 140px;
+  height: 200px;
+  background: #111827;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   padding: 1rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  animation: cardIn 0.5s ease-out backwards;
+}
+
+.gacha-card .name {
+  font-weight: bold;
+  font-size: 0.9rem;
   text-align: center;
+  z-index: 2;
+  color: #fff;
 }
 
-/* Rarity Classes */
-.Mythical { color: var(--mythical); text-shadow: 0 0 10px rgba(255, 62, 62, 0.5); font-weight: bold; }
-.Legendary { color: var(--legendary); text-shadow: 0 0 10px rgba(251, 191, 36, 0.5); font-weight: bold; }
-.Epic { color: var(--epic); }
-.Rare { color: var(--rare); }
-
-/* Layout Grid for Sections */
-.grid-main {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
+.gacha-card .rarity {
+  font-size: 0.7rem;
+  color: var(--muted);
+  z-index: 2;
 }
 
-/* Input Fields */
-input, select {
-  width: 100%;
-  background: #0f172a;
-  color: var(--text);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 0.6rem;
-  margin-top: 0.3rem;
+/* Rarity Styles for Cards */
+.card-Rare { border-color: var(--rare); background: radial-gradient(circle at center, #1e3a8a 0%, #111 70%); }
+.card-Epic { border-color: var(--epic); background: radial-gradient(circle at center, #581c87 0%, #111 70%); }
+.card-Legendary {
+  border-color: var(--legendary);
+  background: radial-gradient(circle at center, #a16207 0%, #111 70%);
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+}
+.card-Mythical {
+  border-color: var(--mythical);
+  background: radial-gradient(circle at center, #7f1d1d 0%, #111 70%);
+  box-shadow: 0 0 20px rgba(255, 62, 62, 0.5);
 }
 
-input:focus {
-  outline: none;
-  border-color: var(--accent);
+/* Animations */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+@keyframes riftPull {
+  0% { transform: scale(1); opacity: 0; }
+  50% { transform: scale(1.5); opacity: 1; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+/* Gacha Overlay */
+#gacha-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: #000;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#gacha-results-visual {
+  width: 90%;
+  max-width: 900px;
+  text-align: center;
+  color: white;
+}
+
+.rift-animation {
+  position: absolute;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+  filter: blur(50px);
+  animation: riftPull 1.5s ease-out;
+  display: none;
+}
+
+#gacha-overlay.animate .rift-animation { display: block; }
+#gacha-overlay.animate #gacha-results-visual { opacity: 0; animation: fadeIn 0.5s 1.5s forwards; }
+
+.hidden { display: none !important; }
